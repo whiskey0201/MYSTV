@@ -8,8 +8,8 @@ import com.github.catvod.crawler.SpiderDebug;
 import com.github.catvod.crawler.SpiderReq;
 import com.github.catvod.crawler.SpiderReqResult;
 import com.github.catvod.crawler.SpiderUrl;
-import com.github.catvod.utils.SpiderOKClient;
 import com.github.catvod.utils.Misc;
+import com.github.catvod.utils.SpiderOKClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -383,7 +383,7 @@ public class AppYs extends Spider {
         return "";
     }
 
-    private static HashMap<String, JSONObject> sites = new HashMap<>();
+    private static final HashMap<String, JSONObject> sites = new HashMap<>();
     private static HashMap<String, String> fakeVips = null;
     private static final Object lock = new Object();
 
@@ -508,12 +508,12 @@ public class AppYs extends Spider {
     }
 
     // ######UA
-    private static Pattern urlPattern1 = Pattern.compile("api\\.php/.*?/vod");
-    private static Pattern urlPattern2 = Pattern.compile("api\\.php/.+?\\.vod");
-    private static Pattern parsePattern = Pattern.compile("/.+\\?.+=");
-    private static Pattern parsePattern1 = Pattern.compile(".*(url|v|vid|php\\?id)=");
-    private static Pattern parsePattern2 = Pattern.compile("https?://[^/]*");
-    private static Pattern[] parseMatchForDotVod = new Pattern[]{
+    private static final Pattern urlPattern1 = Pattern.compile("api\\.php/.*?/vod");
+    private static final Pattern urlPattern2 = Pattern.compile("api\\.php/.+?\\.vod");
+    private static final Pattern parsePattern = Pattern.compile("/.+\\?.+=");
+    private static final Pattern parsePattern1 = Pattern.compile(".*(url|v|vid|php\\?id)=");
+    private static final Pattern parsePattern2 = Pattern.compile("https?://[^/]*");
+    private static final Pattern[] parseMatchForDotVod = new Pattern[]{
             Pattern.compile("jx\\.+huimaojia\\.+com/player"),
             Pattern.compile("py\\.+789pan\\.+cn/player/tm\\.php\\?url="),
             Pattern.compile("ztys\\.+waruanzy\\.+com/player/\\?url="),
@@ -532,10 +532,12 @@ public class AppYs extends Spider {
             Pattern.compile("api\\.+iopenyun\\.+com:88/vip/\\?url="),
             Pattern.compile("play\\.+szbodankyy\\.+com/xxoocnmb"),
             Pattern.compile("vip\\.+fj6080\\.+xyz/player/\\?url="),
+            Pattern.compile("a\\.+dxzj88\\.+com/jiexi"),
+            Pattern.compile("host\\.+q-q\\.+wang/api"),
             Pattern.compile("保佑")
     };
 
-    private static Pattern[] htmlVideoKeyMatch = new Pattern[]{
+    private static final Pattern[] htmlVideoKeyMatch = new Pattern[]{
             Pattern.compile("player=new"),
             Pattern.compile("<div id=\"video\""),
             Pattern.compile("<div id=\"[^\"]*?player\""),
@@ -556,7 +558,7 @@ public class AppYs extends Spider {
     }
 
     // ######POST
-    public String post(String URL) {
+    String post(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
             return "";
         } else if (URL.contains(".vod")) {
@@ -567,7 +569,7 @@ public class AppYs extends Spider {
     }
 
     // ######cookie
-    public String cookie(String URL) {
+    String cookie(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
             return "";
         } else if (URL.contains(".vod")) {
@@ -578,7 +580,7 @@ public class AppYs extends Spider {
     }
 
     // ######获取分类地址
-    public String getCateUrl(String URL) {
+    String getCateUrl(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
             return URL + "nav?token=";
         } else if (URL.contains(".vod")) {
@@ -589,10 +591,10 @@ public class AppYs extends Spider {
     }
 
     // ######分类筛选前缀地址
-    public String getCateFilterUrlPrefix(String URL) {
+    String getCateFilterUrlPrefix(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
-            if (URL.contains("fantuan.tv")) {
-                URL = "https://fantuan.wkfile.com/api.php/app/";
+            if (URL.contains("dijiaxia")) {
+                URL = "http://www.dijiaxia.com/api.php/app/";
                 return URL + "video?tid=";
             } else {
                 return URL + "video?tid=";
@@ -609,7 +611,7 @@ public class AppYs extends Spider {
     }
 
     // ######分类筛选后缀地址
-    public String getCateFilterUrlSuffix(String URL) {
+    String getCateFilterUrlSuffix(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
             return "&class=类型&area=地区&lang=语种&year=年份&limit=20&pg=#PN#";
         } else if (URL.contains(".vod")) {
@@ -620,7 +622,7 @@ public class AppYs extends Spider {
     }
 
     // ######筛选内容
-    public String getFilterTypes(String URL) {
+    String getFilterTypes(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
             return "类型+全部=+喜剧+爱情+恐怖+动作+科幻+剧情+战争+警匪+犯罪+动画+奇幻+武侠+冒险+枪战+恐怖+悬疑+惊悚+经典+青春+文艺+微电影+古装+历史+运动+农村+惊悚+伦理+情色+福利+惊悚+儿童+网络电影\n地区+全部=+内地+香港+台湾+美国+英国+法国+日本+韩国+德国+泰国+印度+西班牙+加拿大+其他\n语种+全部=+国语+英语+粤语+闽南语+韩语+日语+法语+德语+其他\n年份+全部=+2021+2020+2019+2018+2017+2016+2015+2014+2013+2012+2011+2010+2009+2008+2007+2006+2005+2004+2003+2002+2001+2000";
         } else if (URL.contains(".vod")) {
@@ -631,7 +633,7 @@ public class AppYs extends Spider {
     }
 
     // ######推荐地址
-    public String getRecommendUrl(String URL) {
+    String getRecommendUrl(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
             return URL + "index_video?token=";
         } else if (URL.contains(".vod")) {
@@ -642,10 +644,10 @@ public class AppYs extends Spider {
     }
 
     // ######播放器前缀地址
-    public String getPlayUrlPrefix(String URL) {
+    String getPlayUrlPrefix(String URL) {
         if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
-            if (URL.contains("fantuan.tv")) {
-                URL = "https://fantuan.wkfile.com/api.php/app/";
+            if (URL.contains("dijiaxia")) {
+                URL = "https://www.dijiaxia.com/api.php/app/";
                 return URL + "video_detail?id=";
             } else {
                 return URL + "video_detail?id=";
@@ -662,7 +664,7 @@ public class AppYs extends Spider {
     }
 
     // ######选集
-    private HashMap<String, String> parseUrlMap = new HashMap<>();
+    private final HashMap<String, String> parseUrlMap = new HashMap<>();
 
     private void genPlayList(String URL, JSONObject object, String json, JSONObject vod, String vid) throws JSONException {
         ArrayList<String> playUrls = new ArrayList<>();
@@ -717,7 +719,7 @@ public class AppYs extends Spider {
                 }
                 parseUrlMap.put(flag, purl);
             }
-        } else if (urlPattern2.matcher(URL).find()) {
+        } else if (/*urlPattern2.matcher(URL).find()*/URL.contains(".vod")) {
             JSONObject data = object.getJSONObject("data");
             vod.put("vod_id", data.optString("vod_id", vid));
             vod.put("vod_name", data.getString("vod_name"));
@@ -859,39 +861,34 @@ public class AppYs extends Spider {
     }
 
     private String getPlayerUrl(String URL, String parseUrl, String playUrl) {
-        if (URL.contains("xgapp.php/v1/") || URL.contains("api.php/app/") || urlPattern2.matcher(URL).find()) {
+        if (URL.contains("xgapp.php/v1/") || URL.contains("api.php/app/") || /*urlPattern2.matcher(URL).find()*/URL.contains(".vod")) {
             if (playUrl.indexOf(".m3u8") > 15 || playUrl.indexOf(".mp4") > 15 || playUrl.contains("/obj/tos")) {
-                return "https://www.baidu.com/s?wd=" + playUrl;
+                if (playUrl.contains("url=")) {
+                    return "https://www.baidu.com/s?wd=" + playUrl.split("url=")[1];
+                } else if (parseUrl.contains("vip.byteamone.cn") && playUrl.contains("xfy")) {
+                    return "https://vip.xfyun.cc/home/api?type=ys&uid=207276&key=cgmqruvwCGPQRTUVW5&url=" + playUrl.split("url=")[1];
+                } else {
+                    return "https://www.baidu.com/s?wd=" + playUrl;
+                }
             } else {
                 return "https://www.baidu.com/s?wd=" + parseUrl + playUrl;
             }
         } else if (urlPattern1.matcher(URL).find()) {
-            if (URL.contains("fit:8") || URL.contains("diliktv.xyz") || URL.contains("ppzhu.vip") || URL.contains("api.8d8q.com") || URL.contains("haokanju1.cc") || URL.contains("cztv")) {
-                if (playUrl.indexOf(".m3u8") > 15 || playUrl.indexOf(".mp4") > 15 || playUrl.contains("/obj/tos")) {
-                    return "https://www.baidu.com/s?wd=" + playUrl;
-                } else if (playUrl.contains("www.bilibili.com")) {
-                    String spUrl = playUrl.split("url=")[1];
-                    return "https://www.baidu.com/s?wd=https://jx.parwix.com:4433/player/?url=" + spUrl;
+            if (playUrl.indexOf(".m3u8") > 15 || playUrl.indexOf(".mp4") > 15 || playUrl.contains("/obj/tos")) {
+                if (playUrl.contains("url=")) {
+                    return "https://www.baidu.com/s?wd=" + playUrl.split("url=")[1];
                 } else {
-                    return "https://www.baidu.com/s?wd=" + playUrl + "&app=10000&account=272775028&password=qq272775028";
-                }
-            } else if (URL.contains(".life") || URL.contains("lktv") || URL.contains("0818tv")) {
-                if (playUrl.indexOf(".m3u8") > 15 || playUrl.indexOf(".mp4") > 15 || playUrl.contains("/obj/tos")) {
                     return "https://www.baidu.com/s?wd=" + playUrl;
-                } else if (playUrl.contains("www.bilibili.com")) {
-                    String spUrl = playUrl.split("url=")[1];
-                    return "https://www.baidu.com/s?wd=https://jx.parwix.com:4433/player/?url=" + spUrl;
-                } else {
-                    String spUrl = playUrl.split("url=")[1];
-                    return "https://www.baidu.com/s?wd=https://vip123kan.vip/m3u8.php?url=" + spUrl;
                 }
+            } else if (playUrl.contains("www.bilibili.com")) {
+                String spUrl = playUrl.split("url=")[1];
+                return "https://www.baidu.com/s?wd=https://jx.parwix.com:4433/player/?url=" + spUrl;
+            } else if (URL.contains("fit:8") || URL.contains("diliktv.xyz") || URL.contains("ppzhu.vip") || URL.contains("api.8d8q.com") || URL.contains("haokanju1.cc") || URL.contains("cztv")) {
+                return "https://www.baidu.com/s?wd=" + playUrl + "&app=10000&account=272775028&password=qq272775028";
+            } else if (URL.contains(".life") || URL.contains("lktv") || URL.contains("0818tv") || URL.contains("ruoxinew")) {
+                return "https://www.baidu.com/s?wd=https://vip.parwix.com:4433/player/?url=" + playUrl.split("url=")[1];
             } else {
-                if (playUrl.contains("www.bilibili.com")) {
-                    String spUrl = playUrl.split("url=")[1];
-                    return "https://www.baidu.com/s?wd=https://jx.parwix.com:4433/player/?url=" + spUrl;
-                } else {
-                    return "https://www.baidu.com/s?wd=" + playUrl;
-                }
+                return "https://www.baidu.com/s?wd=" + playUrl;
             }
         } else {
             return "https://www.baidu.com/s?wd=" + playUrl;
@@ -917,6 +914,21 @@ public class AppYs extends Spider {
                     result.put("playUrl", "");
                     result.put("url", playurl);
                     result.put("header", "{\"Referer\":\"https://www.duoduozy.com/\"}");
+                }
+            } else if (playurl.contains("api.iopenyun.com:88")) {
+                if (playurl.contains("html")) {
+                    SpiderReqResult resp = SpiderReq.get(new SpiderUrl("https://api.m3u8.tv:5678/home/api?type=ys&uid=233711&key=dgilouvFKNRSWX2467&url=" + playurl.split("=")[1], null));
+                    JSONObject obj = new JSONObject(resp.content);
+                    String ppurl = obj.getString("url");
+                    result.put("parse", 0);
+                    result.put("playUrl", "");
+                    result.put("url", ppurl);
+                } else {
+                    result.put("parse", 1);
+                    result.put("playUrl", "");
+                    result.put("url", playurl);
+                    result.put("ua", "Mozilla/5.0 Windows10");
+                    result.put("header", "{\"Referer\":\"https://user.iopenyun.com:520/user/video/\"}");
                 }
             } else if (playurl.contains("cat.wkfile.com")) {
                 result.put("parse", 0);
