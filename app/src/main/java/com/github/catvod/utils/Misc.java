@@ -4,6 +4,9 @@ import android.net.Uri;
 
 import com.github.catvod.crawler.SpiderDebug;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.regex.Pattern;
 
 public class Misc {
@@ -52,5 +55,57 @@ public class Misc {
             SpiderDebug.log(e);
         }
         return src;
+    }
+
+    public static boolean isBlackVodUrl(String input, String url) {
+        if (url.contains("973973.xyz") || url.contains(".fit:"))
+            return true;
+        return false;
+    }
+
+    public static final String UaWinChrome = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36";
+
+    public static JSONObject fixJsonVodHeader(JSONObject headers, String input, String url) throws JSONException {
+        if (headers == null)
+            headers = new JSONObject();
+        if (input.contains("www.mgtv.com")) {
+            headers.put("Referer", " ");
+            headers.put("User-Agent", " Mozilla/5.0");
+        } else if (url.contains("titan.mgtv")) {
+            headers.put("Referer", " ");
+            headers.put("User-Agent", " Mozilla/5.0");
+        } else if (input.contains("bilibili")) {
+            headers.put("Referer", " https://www.bilibili.com/");
+            headers.put("User-Agent", " " + Misc.UaWinChrome);
+        }
+        return headers;
+    }
+
+    public static JSONObject jsonParse(String input, String json) throws JSONException {
+        JSONObject jsonPlayData = new JSONObject(json);
+        String url = jsonPlayData.getString("url");
+        if (url.startsWith("//")) {
+            url = "https:" + url;
+        }
+        if (!url.startsWith("http")) {
+            return null;
+        }
+        if (Misc.isBlackVodUrl(input, url)) {
+            return null;
+        }
+        JSONObject headers = new JSONObject();
+        String ua = jsonPlayData.optString("user-agent", "");
+        if (ua.trim().length() > 0) {
+            headers.put("User-Agent", " " + ua);
+        }
+        String referer = jsonPlayData.optString("referer", "");
+        if (referer.trim().length() > 0) {
+            headers.put("Referer", " " + referer);
+        }
+        headers = Misc.fixJsonVodHeader(headers, input, url);
+        JSONObject taskResult = new JSONObject();
+        taskResult.put("header", headers);
+        taskResult.put("url", url);
+        return taskResult;
     }
 }
