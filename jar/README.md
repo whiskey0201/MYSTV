@@ -6,7 +6,7 @@
 
 ```json
 
-"spider": "https://github.com/catvod/CatVodTVSpider/blob/master/jar/custom_spider.jar?raw=true",
+"spider": "https://github.com/ks5200/MYSTV/blob/master/jar/custom_spider.jar?raw=true",
 
 国内镜像
 
