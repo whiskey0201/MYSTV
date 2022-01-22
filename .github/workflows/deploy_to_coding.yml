@@ -38,6 +38,6 @@ jobs:
           git config --local user.name "2513270003"
           git config core.filemode false
           git remote set-url origin https://${coding_ref}
-          git add .
+          git add
           git commit -m "$message"
           git push --force --quiet "https://${coding_username}:${coding_token}@${coding_ref}" master:master
