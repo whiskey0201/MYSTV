@@ -1,9 +1,9 @@
-name: Syncc-To-Gitee-and-Coding
+name: Sync-To-Gitee-and-Coding
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   push-to-mirror:
@@ -18,7 +18,7 @@ jobs:
             git branch --track ${branch##*/} $branch
           done
         env:
-          GITHUB_REPOSITORY: zhijikk/MYSTV2
+          GITHUB_REPOSITORY: shenweiyan/GitHub-SYNC
 
       - name: Push to Coding
         run: |
@@ -32,7 +32,7 @@ jobs:
           git push --all --force coding
           git push --tags --force coding
         env:
-          CODING_REPOSITORY: zhijikk/mao/MYSTV2
+          CODING_REPOSITORY: shenweiyan/devs/GitHub-SYNC
           CODING_USERNAME: ${{ secrets.CODING_USERNAME }}
           CODING_PASSWORD: ${{ secrets.CODING_PASSWORD }}
 
@@ -48,6 +48,6 @@ jobs:
           git push --all --force gitee
           git push --tags --force gitee
         env:
-          GITEE_REPOSITORY: ks237200/MYSTV2
+          GITEE_REPOSITORY: shenweiyan/GitHub-SYNC
           GITEE_USERNAME: ${{ secrets.GITEE_USERNAME }}
           GITEE_PASSWORD: ${{ secrets.GITEE_PASSWORD }}
