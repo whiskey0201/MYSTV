@@ -1,5 +1,9 @@
 name: Sync-To-Gitee-and-Coding
-on: workflow_dispatch
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   push-to-mirror:
