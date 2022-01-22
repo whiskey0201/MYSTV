@@ -26,7 +26,7 @@ public class Ysdq extends Spider {
     protected void fetchRule() {
         if (sites.size() == 0) {
             try {
-                SpiderUrl su = new SpiderUrl("https://zhijikk.coding.net/p/mao/d/config/git/raw/master/pub/xpath/ysdq.json", null);
+                SpiderUrl su = new SpiderUrl("https://zhijikk.coding.net/p/mao/d/config/git/raw/master/ysdq.json", null);
                 String json = SpiderReq.get(su).content;
                 JSONArray sources = new JSONObject(json).optJSONArray("source");
                 for (int i = 0; i < sources.length(); i++) {
