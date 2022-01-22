@@ -18,7 +18,7 @@ jobs:
             git branch --track ${branch##*/} $branch
           done
         env:
-          GITHUB_REPOSITORY: shenweiyan/GitHub-SYNC
+          GITHUB_REPOSITORY: ks5200/MYSTV
 
       - name: Push to Coding
         run: |
@@ -32,7 +32,7 @@ jobs:
           git push --all --force coding
           git push --tags --force coding
         env:
-          CODING_REPOSITORY: shenweiyan/devs/GitHub-SYNC
+          CODING_REPOSITORY: zhijikk/mao/MYSTV
           CODING_USERNAME: ${{ secrets.CODING_USERNAME }}
           CODING_PASSWORD: ${{ secrets.CODING_PASSWORD }}
 
@@ -48,6 +48,6 @@ jobs:
           git push --all --force gitee
           git push --tags --force gitee
         env:
-          GITEE_REPOSITORY: shenweiyan/GitHub-SYNC
+          GITEE_REPOSITORY: ks273200/MYSTV
           GITEE_USERNAME: ${{ secrets.GITEE_USERNAME }}
           GITEE_PASSWORD: ${{ secrets.GITEE_PASSWORD }}
