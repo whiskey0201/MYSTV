@@ -3,7 +3,7 @@ name: Sync-To-Gitee-and-Coding
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   push-to-mirror:
