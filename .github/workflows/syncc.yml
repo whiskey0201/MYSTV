@@ -18,9 +18,24 @@ jobs:
             git branch --track ${branch##*/} $branch
           done
         env:
-          GITHUB_REPOSITORY: ks5200/MYSTV
+          GITHUB_REPOSITORY: zhijikk/MYSTV2
 
-   
+      - name: Push to Coding
+        run: |
+          remote_repo="https://${CODING_USERNAME}:${CODING_PASSWORD}@e.coding.net/${CODING_REPOSITORY}.git"
+
+          git remote add coding "${remote_repo}"
+          git show-ref # useful for debugging
+          git branch --verbose
+
+          # publish all
+          git push --all --force coding
+          git push --tags --force coding
+        env:
+          CODING_REPOSITORY: zhijikk/mao/MYSTV2
+          CODING_USERNAME: ${{ secrets.CODING_USERNAME }}
+          CODING_PASSWORD: ${{ secrets.CODING_PASSWORD }}
+
       - name: Push to Gitee
         run: |
           remote_repo="https://${GITEE_USERNAME}:${GITEE_PASSWORD}@gitee.com/${GITEE_REPOSITORY}.git"
