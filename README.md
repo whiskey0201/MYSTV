@@ -30,7 +30,7 @@
 ```json 
 "spider": "http://xxx.xxx.xxx/custom_spider.jar;md5;jar文件md5"
 // 例如
-"spider": "https://github.com/catvod/CatVodTVSpider/blob/master/jar/custom_spider.jar?raw=true;md5;c6ed6bc8285f0aca90e7cb3abf7f9caa",
+"spider": "https://github.com/ks5200/MYSTV/blob/master/jar/custom_spider.jar?raw=true;md5;c6ed6bc8285f0aca90e7cb3abf7f9caa",
 ```
 
 ### 如何在自定义配置中调用我们代码包中的Spider
@@ -74,7 +74,7 @@
 
 **M浏览器中APP影视规则支持（测试版）**（2021.10.30 by 小黄瓜）支持筛选，接口太多，建议自测，哪个能用用哪个。
 
-代码里读取<a href="https://inmemory.coding.net/p/InMemory/d/MBrowser/git/raw/master/AppFile/APP%E5%BD%B1%E8%A7%86%E5%88%97%E8%A1%A8" target="_blank">APP影视配置</a>中的Api接口
+代码里读取<a href="https://zhijikk.coding.net/p/mao/d/config/git/raw/master/appys.json" target="_blank">APP影视配置</a>中的Api接口
 
 所以你需要在自定义配置中增加相关站配置，ext字段填APP影视配置json中的`title`。
 
@@ -279,7 +279,7 @@
 
 **影视大全搜索接口支持（不再更新维护，建议使用M浏览器APP影视规则）**（2021.10.20 by 小黄瓜） 接口杂乱，搜出来能不能播随缘了。
 
-代码里读取<a href="https://pj567.coding.net/p/source/d/source/git/raw/master/mobile/config.json" target="_blank">影视大全配置json</a>中的搜索接口
+代码里读取<a href="https://zhijikk.coding.net/p/mao/d/config/git/raw/master/ysdq.json" target="_blank">影视大全配置json</a>中的搜索接口
 
 所以你需要在自定义配置中增加相关搜索站配置，ext字段填影视大全配置json中的`sourceName`，当前支持type为AppV0、AppTV、aiKanTv的搜索接口。
 
