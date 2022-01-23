@@ -13,7 +13,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/94sm.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/94sm.json"
 },
 {
     "key": "csp_xpath_jpys",
@@ -23,7 +23,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/jpys.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/jpys.json"
 },
 {
     "key": "csp_xpath_age",
@@ -33,7 +33,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/agefans.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/agefans.json"
 },
 {
     "key": "csp_xpath_jpyszl",
@@ -43,7 +43,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/jpys.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/jpys.json"
 },
 {
     "key": "csp_xpath_cjt",
@@ -53,7 +53,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/cjtys.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/cjtys.json"
 },
 {
     "key": "csp_xpath_nfmov",
@@ -63,7 +63,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/nfmovie.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/nfmovie.json"
 },
 {
     "key": "csp_xpath_Jumi",
@@ -73,7 +73,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/jumi.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/jumi.json"
 },
 {
     "key": "csp_xpath_tvci",
@@ -83,7 +83,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 1,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/tvci.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/tvci.json"
 },
 {
     "key": "csp_xpath_duboku",
@@ -93,7 +93,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/duboku.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/duboku.json"
 },
 {
      "key": "csp_xpath_saohuotv",
@@ -103,7 +103,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/saohuotv2.json"
+     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/saohuotv2.json"
 },
 {
      "key": "csp_xpath_dm84",
@@ -113,7 +113,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/dm84.json"
+     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/dm84.json"
 },
 {
     "key": "csp_xpath_egg",
@@ -123,7 +123,7 @@
     "searchable": 1,
     "quickSearch": 1,
     "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/egg.json"
+    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/egg.json"
 },
 {
      "key": "csp_xpath_555",
@@ -133,7 +133,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/555.json"
+     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/555.json"
 },
 {
      "key": "csp_xpath_sky4k",
@@ -143,7 +143,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/sky4k.json"
+     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/sky4k.json"
 },
 {
      "key": "csp_xpath_4kyu",
@@ -153,7 +153,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/4kyu.json"
+     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/4kyu.json"
 },
 {
      "key":"csp_xpath_miniku",
@@ -163,7 +163,7 @@
      "searchable":1,
      "quickSearch":1,
      "filterable": 0,
-     "ext":"https://cdn.jsdelivr.net/gh/Tangsan99999/CatVodTVSpider@master/xpath/miniku.json"
+     "ext":"https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/miniku.json"
 },
 {
      "key":"csp_xpath_pianba",
@@ -173,7 +173,7 @@
      "searchable":1,
      "quickSearch":1,
      "filterable": 0,
-     "ext":"https://cdn.jsdelivr.net/gh/Tangsan99999/CatVodTVSpider@master/xpath/pianba.json"
+     "ext":"https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/pianba.json"
 },
 {
      "key":"csp_xpath_Ole",
@@ -183,7 +183,7 @@
      "searchable":1,
      "quickSearch":1,
      "filterable": 0,
-     "ext":"https://cdn.jsdelivr.net/gh/Tangsan99999/CatVodTVSpider@master/xpath/olevod.json"
+     "ext":"https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/olevod.json"
 }
 
 ```
