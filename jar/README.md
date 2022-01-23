@@ -10,7 +10,7 @@
 
 国内镜像
 
-"spider": "https://litecucumber.coding.net/p/cat/d/config/git/raw/master/custom_spider.txt",
+"spider": "https://zhijikk.coding.net/p/mao/d/MYSTV/git/raw/master/jar/custom_spider.jar?download=true",
 
 ......
 "sites": [
