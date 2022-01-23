@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * <p>
  * Author: 群友 不负此生
  */
-public class AppYs extends Spider {
+public class AppYs2 extends Spider {
 
     private String sourceName = "";
 
@@ -423,7 +423,7 @@ public class AppYs extends Spider {
         synchronized (lock) {
             if (sites.size() == 0) {
                 try {
-                    SpiderUrl su = new SpiderUrl("https://litecucumber.coding.net/p/cat/d/config/git/raw/master/appys.json", null);
+                    SpiderUrl su = new SpiderUrl("https://zhijikk.coding.net/p/mao/d/config/git/raw/master/appys.json", null);
                     String json = SpiderReq.get(su).content.replaceAll("\\s", "");
                     JSONArray sources = new JSONObject(json).optJSONArray("data");
                     for (int i = 0; i < sources.length(); i++) {
