@@ -173,9 +173,8 @@ public class Djx extends Spider {
                 }
             }
             url += "/page/" + pg + ".html";
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            String html = OkHttpUtil.string(url, getHeaders(url));
+            Document doc = Jsoup.parse(html);
             JSONObject result = new JSONObject();
             int pageCount = 0;
             int page = -1;
