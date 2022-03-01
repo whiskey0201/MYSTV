@@ -2,13 +2,11 @@ package com.github.catvod.spider;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Base64;
 
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.crawler.SpiderDebug;
-import com.github.catvod.crawler.SpiderReq;
-import com.github.catvod.crawler.SpiderReqResult;
-import com.github.catvod.crawler.SpiderUrl;
+import com.github.catvod.utils.Misc;
+import com.github.catvod.utils.okhttp.OkHttpUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +44,7 @@ public class Juhi extends Spider {
     public void init(Context context) {
         super.init(context);
         try {
-            playerConfig = new JSONObject("{\"tkm3u8\":{\"sh\":\"✦剧嗨专线\",\"pu\":\"\",\"sn\":0,\"or\":999},\"dbm3u8\":{\"sh\":\"北美高清①\",\"pu\":\"\",\"sn\":0,\"or\":999},\"dbyun\":{\"sh\":\"北美高清②\",\"pu\":\"\",\"sn\":0,\"or\":999},\"kbm3u8\":{\"sh\":\"全球线路①\",\"pu\":\"\",\"sn\":0,\"or\":999},\"hnyun\":{\"sh\":\"全球线路②\",\"pu\":\"\",\"sn\":0,\"or\":999},\"hnm3u8\":{\"sh\":\"全球线路③\",\"pu\":\"\",\"sn\":0,\"or\":999},\"youku\":{\"sh\":\"优酷直连\",\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"sn\":1,\"or\":999},\"if101\":{\"sh\":\"✦蓝光超清\",\"pu\":\"\",\"sn\":0,\"or\":999},\"wjm3u8\":{\"sh\":\"北美高清③\",\"pu\":\"\",\"sn\":0,\"or\":999},\"kbzy\":{\"sh\":\"全球线路④\",\"pu\":\"\",\"sn\":0,\"or\":999},\"qq\":{\"sh\":\"腾讯直连\",\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"sn\":1,\"or\":999},\"fanqie\":{\"sh\":\"全球线路⑤\",\"pu\":\"\",\"sn\":0,\"or\":999},\"qiyi\":{\"sh\":\"爱奇艺直连\",\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"sn\":1,\"or\":999},\"sohu\":{\"sh\":\"搜狐直连\",\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"sn\":1,\"or\":999},\"mgtv\":{\"sh\":\"芒果直连\",\"pu\":\"https://jx.ysgc.xyz/?url=\",\"sn\":1,\"or\":999},\"letv\":{\"sh\":\"乐视直连\",\"pu\":\"https://jx.ysgc.xyz/?url=\",\"sn\":1,\"or\":999},\"pptv\":{\"sh\":\"PPTV直连\",\"pu\":\"https://jx.ysgc.xyz/?url=\",\"sn\":1,\"or\":999}}");
+            playerConfig = new JSONObject("{\"tkm3u8\":{\"sh\":\"✦剧嗨专线\",\"pu\":\"https://jx.huishij.com/yun/?url=\",\"sn\":1,\"or\":999},\"if101\":{\"sh\":\"✦蓝光超清\",\"pu\":\"\",\"sn\":0,\"or\":999},\"dbm3u8\":{\"sh\":\"北美高清①\",\"pu\":\"\",\"sn\":0,\"or\":999},\"dbyun\":{\"sh\":\"北美高清②\",\"pu\":\"\",\"sn\":0,\"or\":999},\"wjm3u8\":{\"sh\":\"北美高清③\",\"pu\":\"\",\"sn\":0,\"or\":999},\"kbm3u8\":{\"sh\":\"全球线路①\",\"pu\":\"\",\"sn\":0,\"or\":999},\"hnyun\":{\"sh\":\"全球线路②\",\"pu\":\"\",\"sn\":0,\"or\":999},\"hnm3u8\":{\"sh\":\"全球线路③\",\"pu\":\"\",\"sn\":0,\"or\":999},\"kbzy\":{\"sh\":\"全球线路④\",\"pu\":\"\",\"sn\":0,\"or\":999},\"fanqie\":{\"sh\":\"全球线路⑤\",\"pu\":\"\",\"sn\":0,\"or\":999},\"kuaiyun\":{\"sh\":\"快速线路\",\"pu\":\"https://qimihe.com/?url=\",\"sn\":1,\"or\":999},\"leyum3u8\":{\"sh\":\"午夜专线1\",\"pu\":\"\",\"sn\":0,\"or\":999},\"lym3u8\":{\"sh\":\"午夜专线2\",\"pu\":\"\",\"sn\":0,\"or\":999},\"dplayer\":{\"sh\":\"DPlayer-H5播放器\",\"pu\":\"\",\"sn\":0,\"or\":999},\"videojs\":{\"sh\":\"videojs-H5播放器\",\"pu\":\"\",\"sn\":0,\"or\":999},\"iva\":{\"sh\":\"iva-H5播放器\",\"pu\":\"\",\"sn\":0,\"or\":999},\"iframe\":{\"sh\":\"iframe外链数据\",\"pu\":\"\",\"sn\":0,\"or\":999},\"link\":{\"sh\":\"外链数据\",\"pu\":\"\",\"sn\":0,\"or\":999},\"swf\":{\"sh\":\"Flash文件\",\"pu\":\"\",\"sn\":0,\"or\":999},\"flv\":{\"sh\":\"Flv文件\",\"pu\":\"\",\"sn\":0,\"or\":999},\"bjyun\":{\"sh\":\"bjyun\",\"pu\":\"\",\"sn\":0,\"or\":999},\"bjm3u8\":{\"sh\":\"bjm3u8\",\"pu\":\"\",\"sn\":0,\"or\":999},\"wasu\":{\"sh\":\"华数直连\",\"pu\":\"\",\"sn\":0,\"or\":999},\"funshion\":{\"sh\":\"风行直连\",\"pu\":\"\",\"sn\":0,\"or\":999},\"pptv\":{\"sh\":\"PPTV直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999},\"letv\":{\"sh\":\"乐视直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999},\"mgtv\":{\"sh\":\"芒果直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999},\"youku\":{\"sh\":\"优酷直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999},\"qiyi\":{\"sh\":\"爱奇艺直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999},\"qq\":{\"sh\":\"腾讯直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999},\"m1905\":{\"sh\":\"M1905直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999},\"sohu\":{\"sh\":\"搜狐直连\",\"pu\":\"https://jx.m3u8.tv/jiexi/?url=\",\"sn\":1,\"or\":999}}");
             filterConfig = new JSONObject("{\"20\":[{\"key\":\"0\",\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"20\"},{\"n\":\"动作片\",\"v\":\"24\"},{\"n\":\"喜剧片\",\"v\":\"25\"},{\"n\":\"愛情片\",\"v\":\"26\"},{\"n\":\"科幻片\",\"v\":\"27\"},{\"n\":\"恐怖片\",\"v\":\"28\"},{\"n\":\"劇情片\",\"v\":\"11\"},{\"n\":\"戰爭片\",\"v\":\"30\"},{\"n\":\"动画电影\",\"v\":\"33\"}]},{\"key\":1,\"name\":\"地区\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"大陆\",\"v\":\"大陆\"},{\"n\":\"香港\",\"v\":\"香港\"},{\"n\":\"台湾\",\"v\":\"台湾\"},{\"n\":\"美国\",\"v\":\"美国\"},{\"n\":\"法国\",\"v\":\"法国\"},{\"n\":\"英国\",\"v\":\"英国\"},{\"n\":\"日本\",\"v\":\"日本\"},{\"n\":\"韩国\",\"v\":\"韩国\"},{\"n\":\"德国\",\"v\":\"德国\"},{\"n\":\"泰国\",\"v\":\"泰国\"},{\"n\":\"印度\",\"v\":\"印度\"},{\"n\":\"意大利\",\"v\":\"意大利\"},{\"n\":\"西班牙\",\"v\":\"西班牙\"},{\"n\":\"加拿大\",\"v\":\"加拿大\"},{\"n\":\"其他\",\"v\":\"其他\"}]},{\"key\":11,\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"}]},{\"key\":2,\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"time\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}],\"21\":[{\"key\":\"tid\",\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"国产剧\",\"v\":\"34\"},{\"n\":\"港剧\",\"v\":\"35\"},{\"n\":\"韩剧\",\"v\":\"37\"},{\"n\":\"欧美剧\",\"v\":\"36\"},{\"n\":\"日本剧\",\"v\":\"38\"},{\"n\":\"台湾剧\",\"v\":\"39\"},{\"n\":\"海外剧\",\"v\":\"40\"}]},{\"key\":11,\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"},{\"n\":\"2009\",\"v\":\"2009\"},{\"n\":\"2008\",\"v\":\"2008\"},{\"n\":\"2007\",\"v\":\"2007\"},{\"n\":\"2006\",\"v\":\"2006\"},{\"n\":\"2005\",\"v\":\"2005\"},{\"n\":\"2004\",\"v\":\"2004\"}]},{\"key\":2,\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"time\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}],\"22\":[{\"key\":0,\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"22\"},{\"n\":\"大陆综艺\",\"v\":\"41\"},{\"n\":\"港台综艺\",\"v\":\"42\"},{\"n\":\"日韩综艺\",\"v\":\"43\"},{\"n\":\"欧美综艺\",\"v\":\"44\"}]},{\"key\":11,\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"},{\"n\":\"2009\",\"v\":\"2009\"},{\"n\":\"2008\",\"v\":\"2008\"},{\"n\":\"2007\",\"v\":\"2007\"},{\"n\":\"2006\",\"v\":\"2006\"},{\"n\":\"2005\",\"v\":\"2005\"},{\"n\":\"2004\",\"v\":\"2004\"}]},{\"key\":2,\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"time\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}],\"23\":[{\"key\":0,\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"23\"},{\"n\":\"国产动漫\",\"v\":\"45\"},{\"n\":\"日本动漫\",\"v\":\"46\"},{\"n\":\"欧美动漫\",\"v\":\"47\"}]},{\"key\":11,\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"},{\"n\":\"2009\",\"v\":\"2009\"},{\"n\":\"2008\",\"v\":\"2008\"},{\"n\":\"2007\",\"v\":\"2007\"},{\"n\":\"2006\",\"v\":\"2006\"},{\"n\":\"2005\",\"v\":\"2005\"},{\"n\":\"2004\",\"v\":\"2004\"}]},{\"key\":2,\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"time\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}]}");
         } catch (JSONException e) {
             SpiderDebug.log(e);
@@ -80,9 +78,7 @@ public class Juhi extends Spider {
     @Override
     public String homeContent(boolean filter) {
         try {
-            SpiderUrl su = new SpiderUrl(siteUrl, getHeaders(siteUrl));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            Document doc = Jsoup.parse(OkHttpUtil.string(siteUrl, getHeaders(siteUrl)));
             // 分类节点
             Elements elements = doc.select("ul.nav-menu > li > a");
             JSONArray classes = new JSONArray();
@@ -92,7 +88,7 @@ public class Juhi extends Spider {
                 boolean show = name.equals("电影") ||
                         name.equals("电视剧") ||
                         name.equals("综艺") ||
-                        name.equals("动漫") ;
+                        name.equals("动漫");
                 if (show) {
                     Matcher mather = regexCategory.matcher(ele.attr("href"));
                     if (!mather.find())
@@ -166,16 +162,13 @@ public class Juhi extends Spider {
             }
             // 获取分类数据的url
             String url = siteUrl + "/vodshow/" + TextUtils.join("-", urlParams) + "/";
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            // 发起http请求
-            SpiderReqResult srr = SpiderReq.get(su);
-            String html = srr.content;
+            String html = OkHttpUtil.string(url, getHeaders(url));
             Document doc = Jsoup.parse(html);
             JSONObject result = new JSONObject();
             int pageCount = 0;
             int page = -1;
 
-            
+
             // 取页码相关信息
             Elements pageInfo = doc.select("ul.myui-page>li");
             if (pageInfo.size() == 0) {
@@ -252,11 +245,9 @@ public class Juhi extends Spider {
     public String detailContent(List<String> ids) {
         try {
             // 视频详情url
-            String url = siteUrl + "/voddetail/" + ids.get(0)+ "/";
+            String url = siteUrl + "/voddetail/" + ids.get(0) + "/";
             //System.out.println(url);
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            Document doc = Jsoup.parse(OkHttpUtil.string(url, getHeaders(url)));
             JSONObject result = new JSONObject();
             JSONObject vodList = new JSONObject();
 
@@ -396,18 +387,16 @@ public class Juhi extends Spider {
             //定义播放用的headers
             JSONObject headers = new JSONObject();
             //headers.put("Host", " cokemv.co");
-            headers.put("origin", " https://juhi.cc");
-            headers.put("User-Agent", " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36");
-            headers.put("Accept", " */*");
-            headers.put("Accept-Language", " zh-CN,zh;q=0.9,en-US;q=0.3,en;q=0.7");
-            headers.put("Accept-Encoding", " gzip, deflate");
+            //headers.put("origin", " https://juhi.cc");
+            //headers.put("User-Agent", " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36");
+            //headers.put("Accept", " */*");
+            //headers.put("Accept-Language", " zh-CN,zh;q=0.9,en-US;q=0.3,en;q=0.7");
+            //headers.put("Accept-Encoding", " gzip, deflate, br");
 
 
             // 播放页 url
             String url = siteUrl + "/vodplay/" + id + "/";
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            Document doc = Jsoup.parse(OkHttpUtil.string(url, getHeaders(url)));
             Elements allScript = doc.select("script");
             JSONObject result = new JSONObject();
             for (int i = 0; i < allScript.size(); i++) {
@@ -421,6 +410,16 @@ public class Juhi extends Spider {
                         JSONObject pCfg = playerConfig.getJSONObject(player.getString("from"));
                         String videoUrl = player.getString("url");
                         String playUrl = pCfg.getString("pu");
+                        if (Misc.isVip(videoUrl)) { // 使用jx:1
+                            try {
+                                result.put("parse", 1);
+                                result.put("jx", "1");
+                                result.put("url", videoUrl);
+                                return result.toString();
+                            } catch (Exception e) {
+                                SpiderDebug.log(e);
+                            }
+                        }
                         result.put("parse", pCfg.getInt("sn"));
                         result.put("playUrl", playUrl);
                         result.put("url", videoUrl);
@@ -436,6 +435,7 @@ public class Juhi extends Spider {
         return "";
     }
 
+
     @Override
     public String searchContent(String key, boolean quick) {
         try {
@@ -443,10 +443,8 @@ public class Juhi extends Spider {
                 return "";
             long currentTime = System.currentTimeMillis();
             String url = siteUrl + "/index.php/ajax/suggest?mid=1&wd=" + URLEncoder.encode(key) + "&limit=10&timestamp=" + currentTime;
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
             //Document doc = Jsoup.parse(srr.content);
-            JSONObject searchResult = new JSONObject(srr.content);
+            JSONObject searchResult = new JSONObject(OkHttpUtil.string(url, getHeaders(url)));
             JSONObject result = new JSONObject();
             JSONArray videos = new JSONArray();
             if (searchResult.getInt("total") > 0) {
