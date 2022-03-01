@@ -56,26 +56,6 @@
     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/cjtys.json"
 },
 {
-    "key": "csp_xpath_nfmov",
-    "name": "NFMovies(XPath)",
-    "type": 3,
-    "api": "csp_XPathNfMov",
-    "searchable": 1,
-    "quickSearch": 1,
-    "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/nfmovie.json"
-},
-{
-    "key": "csp_xpath_Jumi",
-    "name": "Jumi(XPath)",
-    "type": 3,
-    "api": "csp_XPath",
-    "searchable": 1,
-    "quickSearch": 1,
-    "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/jumi.json"
-},
-{
     "key": "csp_xpath_tvci",
     "name": "大师兄(XPath)",
     "type": 3,
@@ -84,16 +64,6 @@
     "quickSearch": 1,
     "filterable": 1,
     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/tvci.json"
-},
-{
-    "key": "csp_xpath_duboku",
-    "name": "独播库(XPath)",
-    "type": 3,
-    "api": "csp_XPath",
-    "searchable": 1,
-    "quickSearch": 1,
-    "filterable": 0,
-    "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/duboku.json"
 },
 {
      "key": "csp_xpath_saohuotv",
@@ -136,16 +106,6 @@
      "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/555.json"
 },
 {
-     "key": "csp_xpath_sky4k",
-     "name": "天空4K(XPath)",
-     "type": 3,
-     "api": "csp_XPath",
-     "searchable": 1,
-     "quickSearch": 1,
-     "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/sky4k.json"
-},
-{
      "key": "csp_xpath_4kyu",
      "name": "一只鱼4K(XPath)",
      "type": 3,
@@ -184,7 +144,87 @@
      "quickSearch":1,
      "filterable": 0,
      "ext":"https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/olevod.json"
-}
+},
+    {
+      "key": "唐人街",
+      "name": "唐人街(P)",
+      "type": 3,
+      "api": "csp_XPathMacFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/Renjie.json"
+    },
+    {
+      "key": "Gimy",
+      "name": "Gimy(P)",
+      "type": 3,
+      "api": "csp_XPathMacFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/Gimy.json"
+    },
+    {
+      "key": "Jumi",
+      "name": "Jumi(P)",
+      "type": 3,
+      "api": "csp_XPathMacFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/Jumi.json"
+    },
+    {
+      "key": "Djx",
+      "name": "瓜皮TV(P)",
+      "type": 3,
+      "api": "csp_XPathFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/Djx.json"
+    },
+    {
+      "key": "独播库",
+      "name": "独播库(P)",
+      "type": 3,
+      "api": "csp_XPathMacFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/Duboku.json"
+    },
+    {
+      "key": "Sky4k",
+      "name": "Sky4k(P)[en]",
+      "type": 3,
+      "api": "csp_XPathMacFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/Sky4k.json"
+    },
+    {
+      "key": "Nfuxs",
+      "name": "南府(P)",
+      "type": 3,
+      "api": "csp_XPathFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/Nfuxs.json"
+    },
+    {
+      "key": "Aixixi",
+      "name": "爱西西(P)",
+      "type": 3,
+      "api": "csp_XPathFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://cdn.jsdelivr.net/gh/ks5200/MYSTV@master/xpath/Aixixi.json"
+    }
 
 ```
 
