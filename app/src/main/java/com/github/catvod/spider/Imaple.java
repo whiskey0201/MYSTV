@@ -2,13 +2,10 @@ package com.github.catvod.spider;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Base64;
 
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.crawler.SpiderDebug;
-import com.github.catvod.crawler.SpiderReq;
-import com.github.catvod.crawler.SpiderReqResult;
-import com.github.catvod.crawler.SpiderUrl;
+import com.github.catvod.utils.okhttp.OkHttpUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +15,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -32,7 +28,7 @@ import java.util.regex.Pattern;
 
 /**
  * Demo for self study
- * <p> 
+ * <p>
  * Source from Author: CatVod
  */
 
@@ -53,7 +49,7 @@ public class Imaple extends Spider {
     public void init(Context context) {
         super.init(context);
         try {
-            playerConfig = new JSONObject("{\"mlm3u8\":{\"sh\":\"藍光線一\",\"sn\":0,\"pu\":\"\",\"or\":999},\"alizy\":{\"sh\":\"藍光線三\",\"sn\":0,\"pu\":\"\",\"or\":999},\"dbm3u8\":{\"sh\":\"急速雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"tkm3u8\":{\"sh\":\"天空雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"wjm3u8\":{\"sh\":\"理想雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"605m3u8\":{\"sh\":\"光速雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"kbm3u8\":{\"sh\":\"秒播雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"bjm3u8\":{\"sh\":\"八戒雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"hnm3u8\":{\"sh\":\"\",\"sn\":0,\"pu\":\"\",\"or\":999},\"bdxm3u8\":{\"sh\":\"\",\"sn\":0,\"pu\":\"\",\"or\":999},\"88zym3u8\":{\"sh\":\"優雅雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"youku\":{\"sh\":\"優酷雲\",\"sn\":1,\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"or\":999},\"mgtv\":{\"sh\":\"芒果雲\",\"sn\":1,\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"or\":999},\"88zym3u8\":{\"sh\":\"88\",\"sn\":0,\"pu\":\"\",\"or\":999},\"qiyi\":{\"sh\":\"奇藝雲\",\"sn\":1,\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"or\":999},\"dplayer\":{\"sh\":\"動漫專線\",\"sn\":0,\"pu\":\"\",\"or\":999},\"qq\":{\"sh\":\"騰訊雲\",\"sn\":1,\"pu\":\"https://titan.mgtv.com.jumi.tv/player/?url=\",\"or\":999}}");
+            playerConfig = new JSONObject("{\"kbm3u8\":{\"sh\":\"秒播雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"bjm3u8\":{\"sh\":\"八戒雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"605m3u8\":{\"sh\":\"光速雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"mlm3u8\":{\"sh\":\"藍光線一\",\"sn\":0,\"pu\":\"\",\"or\":999},\"alizy\":{\"sh\":\"藍光線三\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"dplayer\":{\"sh\":\"動漫專線\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"qdyun\":{\"sh\":\"驱动云\",\"sn\":0,\"pu\":\"\",\"or\":999},\"wjm3u8\":{\"sh\":\"理想雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"fanqie\":{\"sh\":\"番茄资源\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"youku\":{\"sh\":\"奇藝雲\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"qq\":{\"sh\":\"騰訊雲\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"mgtv\":{\"sh\":\"芒果雲\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"sohu\":{\"sh\":\"搜狐雲\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"88zym3u8\":{\"sh\":\"優雅雲\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"bilibili\":{\"sh\":\"嗶哩雲\",\"sn\":1,\"pu\":\"https://player.imaple.tv/player/?url=\",\"or\":999},\"dbm3u8\":{\"sh\":\"急速雲\",\"sn\":0,\"pu\":\"\",\"or\":999},\"tkm3u8\":{\"sh\":\"天空雲\",\"sn\":0,\"pu\":\"\",\"or\":999}}");
             filterConfig = new JSONObject("{\"1\":[{\"key\":\"tid\",\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"動作片\",\"v\":\"6\"},{\"n\":\"喜劇片\",\"v\":\"7\"},{\"n\":\"愛情片\",\"v\":\"8\"},{\"n\":\"科幻片\",\"v\":\"9\"},{\"n\":\"恐怖片\",\"v\":\"10\"},{\"n\":\"劇情片\",\"v\":\"11\"},{\"n\":\"戰爭片\",\"v\":\"12\"},{\"n\":\"紀錄片\",\"v\":\"20\"}]},{\"key\":\"area\",\"name\":\"地区\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"大陸\",\"v\":\"大陸\"},{\"n\":\"香港\",\"v\":\"香港\"},{\"n\":\"台灣\",\"v\":\"台灣\"},{\"n\":\"美國\",\"v\":\"美國\"},{\"n\":\"法國\",\"v\":\"法國\"},{\"n\":\"英國\",\"v\":\"英國\"},{\"n\":\"日本\",\"v\":\"日本\"},{\"n\":\"韓國\",\"v\":\"韓國\"},{\"n\":\"德國\",\"v\":\"德國\"},{\"n\":\"泰國\",\"v\":\"泰國\"},{\"n\":\"印度\",\"v\":\"印度\"},{\"n\":\"意大利\",\"v\":\"意大利\"},{\"n\":\"西班牙\",\"v\":\"西班牙\"},{\"n\":\"加拿大\",\"v\":\"加拿大\"},{\"n\":\"其他\",\"v\":\"其他\"}]},{\"key\":\"year\",\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"}]},{\"key\":\"by\",\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}],\"2\":[{\"key\":\"tid\",\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"大陸劇\",\"v\":\"13\"},{\"n\":\"港劇\",\"v\":\"14\"},{\"n\":\"台劇\",\"v\":\"15\"},{\"n\":\"日劇\",\"v\":\"16\"},{\"n\":\"韓劇\",\"v\":\"23\"},{\"n\":\"美劇\",\"v\":\"24\"},{\"n\":\"海外劇\",\"v\":\"25\"}]},{\"key\":\"year\",\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"},{\"n\":\"2009\",\"v\":\"2009\"},{\"n\":\"2008\",\"v\":\"2008\"},{\"n\":\"2007\",\"v\":\"2007\"},{\"n\":\"2006\",\"v\":\"2006\"},{\"n\":\"2005\",\"v\":\"2005\"},{\"n\":\"2004\",\"v\":\"2004\"}]},{\"key\":\"by\",\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}],\"3\":[{\"key\":\"tid\",\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"港台綜藝\",\"v\":\"29\"},{\"n\":\"日韓綜藝\",\"v\":\"30\"},{\"n\":\"大陸綜藝\",\"v\":\"31\"},{\"n\":\"歐美綜藝\",\"v\":\"32\"}]},{\"key\":\"year\",\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"},{\"n\":\"2009\",\"v\":\"2009\"},{\"n\":\"2008\",\"v\":\"2008\"},{\"n\":\"2007\",\"v\":\"2007\"},{\"n\":\"2006\",\"v\":\"2006\"},{\"n\":\"2005\",\"v\":\"2005\"},{\"n\":\"2004\",\"v\":\"2004\"}]},{\"key\":\"by\",\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}],\"4\":[{\"key\":\"tid\",\"name\":\"类型\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"港台動漫\",\"v\":\"33\"},{\"n\":\"日韓動漫\",\"v\":\"34\"},{\"n\":\"大陸動漫\",\"v\":\"35\"},{\"n\":\"歐美動漫\",\"v\":\"36\"},{\"n\":\"海外動漫\",\"v\":\"37\"}]},{\"key\":\"year\",\"name\":\"年份\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"2021\",\"v\":\"2021\"},{\"n\":\"2020\",\"v\":\"2020\"},{\"n\":\"2019\",\"v\":\"2019\"},{\"n\":\"2018\",\"v\":\"2018\"},{\"n\":\"2017\",\"v\":\"2017\"},{\"n\":\"2016\",\"v\":\"2016\"},{\"n\":\"2015\",\"v\":\"2015\"},{\"n\":\"2014\",\"v\":\"2014\"},{\"n\":\"2013\",\"v\":\"2013\"},{\"n\":\"2012\",\"v\":\"2012\"},{\"n\":\"2011\",\"v\":\"2011\"},{\"n\":\"2010\",\"v\":\"2010\"},{\"n\":\"2009\",\"v\":\"2009\"},{\"n\":\"2008\",\"v\":\"2008\"},{\"n\":\"2007\",\"v\":\"2007\"},{\"n\":\"2006\",\"v\":\"2006\"},{\"n\":\"2005\",\"v\":\"2005\"},{\"n\":\"2004\",\"v\":\"2004\"}]},{\"key\":\"by\",\"name\":\"排序\",\"value\":[{\"n\":\"时间\",\"v\":\"\"},{\"n\":\"人气\",\"v\":\"hits\"},{\"n\":\"评分\",\"v\":\"score\"}]}]}");
         } catch (JSONException e) {
             SpiderDebug.log(e);
@@ -88,9 +84,7 @@ public class Imaple extends Spider {
     public String homeContent(boolean filter) {
         try {
             String url = siteUrl + '/';
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            Document doc = Jsoup.parse(OkHttpUtil.string(url, getHeaders(url)));
             Elements elements = doc.select("ul.myui-header__menu>li>a");
             JSONArray classes = new JSONArray();
             ArrayList<String> allClass = new ArrayList<>();
@@ -149,8 +143,8 @@ public class Imaple extends Spider {
         return "";
     }
 
-    
-     /**
+
+    /**
      * 获取分类信息数据
      *
      * @param tid    分类id
@@ -178,9 +172,8 @@ public class Imaple extends Spider {
                 }
             }
             url += "/page/" + pg + ".html";
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            String html = OkHttpUtil.string(url, getHeaders(url));
+            Document doc = Jsoup.parse(html);
             JSONObject result = new JSONObject();
             int pageCount = 0;
             int page = -1;
@@ -215,7 +208,7 @@ public class Imaple extends Spider {
             }
 
             JSONArray videos = new JSONArray();
-            if (!srr.content.contains("没有找到您想要的结果哦")) {
+            if (!html.contains("没有找到您想要的结果哦")) {
                 // 取当前分类页的视频列表
                 Elements list = doc.select("li.col-lg-6 >div.myui-vodlist__box");
                 for (int i = 0; i < list.size(); i++) {
@@ -249,7 +242,7 @@ public class Imaple extends Spider {
         return "";
     }
 
-     /**
+    /**
      * 视频详情信息
      *
      * @param ids 视频id
@@ -260,9 +253,7 @@ public class Imaple extends Spider {
         try {
             // 视频详情url
             String url = siteUrl + "/vod/" + ids.get(0) + ".html";
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            Document doc = Jsoup.parse(OkHttpUtil.string(url, getHeaders(url)));
             JSONObject result = new JSONObject();
             JSONObject vodList = new JSONObject();
 
@@ -330,7 +321,7 @@ public class Imaple extends Spider {
                     return 1;
                 }
             });
-                        
+
             // 取播放列表数据
             Elements sources = doc.select("div.myui-panel__head>ul").get(0).select("li");
             Elements sourceList = doc.select("div.tab-content>div.tab-pane");
@@ -386,7 +377,7 @@ public class Imaple extends Spider {
         return "";
     }
 
-   /**
+    /**
      * 获取视频播放信息
      *
      * @param flag     播放源
@@ -409,9 +400,7 @@ public class Imaple extends Spider {
 
             // 播放页 url
             String url = siteUrl + "/play/" + id + ".html";
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            Document doc = Jsoup.parse(srr.content);
+            Document doc = Jsoup.parse(OkHttpUtil.string(url, getHeaders(url)));
             Elements allScript = doc.select("script");
             JSONObject result = new JSONObject();
             for (int i = 0; i < allScript.size(); i++) {
@@ -448,10 +437,7 @@ public class Imaple extends Spider {
                 return "";
             long currentTime = System.currentTimeMillis();
             String url = siteUrl + "/index.php/ajax/suggest?mid=1&wd=" + URLEncoder.encode(key) + "&limit=10&timestamp=" + currentTime;
-            SpiderUrl su = new SpiderUrl(url, getHeaders(url));
-            SpiderReqResult srr = SpiderReq.get(su);
-            //Document doc = Jsoup.parse(srr.content);
-            JSONObject searchResult = new JSONObject(srr.content);
+            JSONObject searchResult = new JSONObject(OkHttpUtil.string(url, getHeaders(url)));
             JSONObject result = new JSONObject();
             JSONArray videos = new JSONArray();
             if (searchResult.getInt("total") > 0) {
