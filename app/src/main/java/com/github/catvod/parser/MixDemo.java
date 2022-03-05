@@ -129,7 +129,7 @@ public class MixDemo {
         if (ext.trim().length() > 0) {
             int idx = url.indexOf("?");
             if (idx > 0) {
-                return url.substring(0, idx) + "cat_ext=" + Base64.encodeToString(ext.getBytes(), Base64.DEFAULT | Base64.URL_SAFE | Base64.NO_WRAP) + "&" + url.substring(idx);
+                return url.substring(0, idx + 1) + "cat_ext=" + Base64.encodeToString(ext.getBytes(), Base64.DEFAULT | Base64.URL_SAFE | Base64.NO_WRAP) + "&" + url.substring(idx + 1);
             }
         }
         return url;
