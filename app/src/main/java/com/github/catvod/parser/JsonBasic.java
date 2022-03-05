@@ -25,6 +25,7 @@ public class JsonBasic {
                     try {
                         String realUrl = reqHeaders.get("url");
                         reqHeaders.remove("url");
+                        SpiderDebug.log(realUrl + url);
                         String json = OkHttpUtil.string(realUrl + url, reqHeaders);
                         JSONObject taskResult = Misc.jsonParse(url, json);
                         if (taskResult == null)
