@@ -36,8 +36,7 @@ public class JsonParallel {
                 List<Future<JSONObject>> futures = new ArrayList<>();
                 Set<String> jxNames = jx.keySet();
                 for (String jxName : jxNames) {
-                    String parseUrl = jx.get(jxName) + url;
-                    SpiderDebug.log(parseUrl);
+                    String parseUrl = jx.get(jxName);
                     futures.add(completionService.submit(new Callable<JSONObject>() {
                         @Override
                         public JSONObject call() throws Exception {
@@ -45,7 +44,8 @@ public class JsonParallel {
                                 HashMap<String, String> reqHeaders = JsonBasic.getReqHeader(parseUrl);
                                 String realUrl = reqHeaders.get("url");
                                 reqHeaders.remove("url");
-                                String json = OkHttpUtil.string(realUrl + url, ParseOKTag, reqHeaders);
+                                SpiderDebug.log(realUrl + url);
+                                String json = OkHttpUtil.string(realUrl + url, Misc.ParseOKTag, reqHeaders);
                                 JSONObject taskResult = Misc.jsonParse(url, json);
                                 taskResult.put("jxFrom", jxName);
                                 SpiderDebug.log(taskResult.toString());
