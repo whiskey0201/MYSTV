@@ -33,8 +33,8 @@ import java.util.regex.Pattern;
  * Author: 小黄瓜
  */
 public class N0ys extends Spider {
-    private static final String siteUrl = "http://98bbw.com";
-    private static final String siteHost = "98bbw.com";
+    private static final String siteUrl = "http://1090ys8.com";
+    private static final String siteHost = "1090ys8.com";
     private static final String ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36";
 
     /**
@@ -51,7 +51,7 @@ public class N0ys extends Spider {
     public void init(Context context) {
         super.init(context);
         try {
-            playerConfig = new JSONObject("{\"youbo\":{\"sh\":\"高速1\",\"sn\":\"0\",\"pu\":\"http://1090ys2.com/x2.php?id=\",\"or\":999},\"wanpan\":{\"sh\":\"高速备用\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"niuxyun\":{\"sh\":\"高速2\",\"sn\":\"1\",\"pu\":\"http://1090ys2.com/nxjx/jx.php?id=\",\"or\":999},\"bjm3u8\":{\"sh\":\"备用2\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"dbm3u8\":{\"sh\":\"备用3\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"nfmp4\":{\"sh\":\"高速3\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"tkm3u8\":{\"sh\":\"备用1\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"wjm3u8\":{\"sh\":\"备用4\",\"sn\":\"0\",\"pu\":\"\",\"or\":999}}");
+            playerConfig = new JSONObject("{\"youbo\":{\"sh\":\"高速1\",\"sn\":\"0\",\"pu\":\"http://jx1090ys5.hongfanedu.top/x2.php?id=\",\"or\":999},\"wanpan\":{\"sh\":\"高速备用\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"niuxyun\":{\"sh\":\"高速2\",\"sn\":\"1\",\"pu\":\"http://1090ys2.com/nxjx/jx.php?id=\",\"or\":999},\"bjm3u8\":{\"sh\":\"备用2\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"dbm3u8\":{\"sh\":\"备用3\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"nfmp4\":{\"sh\":\"高速3\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"tkm3u8\":{\"sh\":\"备用1\",\"sn\":\"0\",\"pu\":\"\",\"or\":999},\"wjm3u8\":{\"sh\":\"备用4\",\"sn\":\"0\",\"pu\":\"\",\"or\":999}}");
         } catch (JSONException e) {
             SpiderDebug.log(e);
         }
@@ -248,19 +248,9 @@ public class N0ys extends Spider {
                 } else if (info.equals("更新：")) {
                     remark = text.nextSibling().outerHtml().trim();
                 } else if (info.equals("导演：")) {
-                    List<String> directors = new ArrayList<>();
-                    Elements aa = text.parent().select("a");
-                    for (int j = 0; j < aa.size(); j++) {
-                        directors.add(aa.get(j).text());
-                    }
-                    director = TextUtils.join(",", directors);
+                    director = text.nextSibling().outerHtml().trim();
                 } else if (info.equals("主演：")) {
-                    List<String> actors = new ArrayList<>();
-                    Elements aa = text.parent().select("a");
-                    for (int j = 0; j < aa.size(); j++) {
-                        actors.add(aa.get(j).text());
-                    }
-                    actor = TextUtils.join(",", actors);
+                    actor = text.nextSibling().outerHtml().trim();
                 }
             }
 
@@ -359,7 +349,7 @@ public class N0ys extends Spider {
     public String playerContent(String flag, String id, List<String> vipFlags) {
         try {
             // 播放页 url
-            String url = "http://98bbw.com/play/" + id + ".html";
+            String url = "http://1090ys8.com/play/" + id + ".html";
             Document doc = Jsoup.parse(OkHttpUtil.string(url, getHeaders(url)));
             Elements allScript = doc.select("script");
             JSONObject result = new JSONObject();
@@ -378,14 +368,14 @@ public class N0ys extends Spider {
                         if (from.equals("youbo")) {
                             // 感谢猫大神的直连解密代码
                             HashMap<String, String> hds = getHeaders(url);
-                            hds.put("Host", "1090ys2.com");
+                            hds.put("Host", "jx1090ys5.hongfanedu.top");
                             hds.put("Referer", url);
                             String content1 = OkHttpUtil.string(playUrl + videoUrl, hds);
                             Document doc1 = Jsoup.parse(content1);
                             String url2 = doc1.selectFirst("iframe#WANG").attr("src");
                             String url2host = Uri.parse(url2).getHost();
                             hds.put("Host", url2host);
-                            hds.put("Referer", "http://1090ys2.com/");
+                            hds.put("Referer", "http://jx1090ys5.hongfanedu.top/");
                             String content2 = OkHttpUtil.string(url2, hds);
                             String finder = "var id=\"";
                             start = content2.indexOf(finder) + finder.length();
@@ -451,31 +441,26 @@ public class N0ys extends Spider {
     @Override
     public String searchContent(String key, boolean quick) {
         try {
-            if (quick)
-                return "";
-            String url = siteUrl + "/search.html?wd=" + URLEncoder.encode(key) + "&submit=";
-            Document doc = Jsoup.parse(OkHttpUtil.string(url, getHeaders(url)));
+            long currentTime = System.currentTimeMillis();
+            String url = siteUrl + "/index.php/ajax/suggest?mid=1&wd=" + URLEncoder.encode(key) + "&limit=10&timestamp=" + currentTime;
+            JSONObject searchResult = new JSONObject(OkHttpUtil.string(url, getHeaders(url)));
             JSONObject result = new JSONObject();
-
             JSONArray videos = new JSONArray();
-            Elements list = doc.select("div.col-lg-wide-75 ul.stui-vodlist__media li a.v-thumb");
-            for (int i = 0; i < list.size(); i++) {
-                Element vod = list.get(i);
-                String title = vod.attr("title");
-                String cover = vod.attr("data-original");
-                String remark = vod.selectFirst("span.pic-text").text();
-                Matcher matcher = regexVid.matcher(vod.attr("href"));
-                if (!matcher.find())
-                    continue;
-                String id = matcher.group(1);
-                JSONObject v = new JSONObject();
-                v.put("vod_id", id);
-                v.put("vod_name", title);
-                v.put("vod_pic", cover);
-                v.put("vod_remarks", remark);
-                videos.put(v);
+            if (searchResult.getInt("total") > 0) {
+                JSONArray lists = new JSONArray(searchResult.getString("list"));
+                for (int i = 0; i < lists.length(); i++) {
+                    JSONObject vod = lists.getJSONObject(i);
+                    String id = vod.getString("id");
+                    String title = vod.getString("name");
+                    String cover = vod.getString("pic");
+                    JSONObject v = new JSONObject();
+                    v.put("vod_id", id);
+                    v.put("vod_name", title);
+                    v.put("vod_pic", cover);
+                    v.put("vod_remarks", "");
+                    videos.put(v);
+                }
             }
-
             result.put("list", videos);
             return result.toString();
         } catch (Exception e) {
