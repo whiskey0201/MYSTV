@@ -7,6 +7,7 @@ import com.github.catvod.utils.okhttp.OkHttpUtil;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +42,10 @@ public class JsonParallel {
                         @Override
                         public JSONObject call() throws Exception {
                             try {
-                                String json = OkHttpUtil.string(parseUrl, ParseOKTag, null);
+                                HashMap<String, String> reqHeaders = JsonBasic.getReqHeader(parseUrl);
+                                String realUrl = reqHeaders.get("url");
+                                reqHeaders.remove("url");
+                                String json = OkHttpUtil.string(realUrl + url, ParseOKTag, reqHeaders);
                                 JSONObject taskResult = Misc.jsonParse(url, json);
                                 taskResult.put("jxFrom", jxName);
                                 SpiderDebug.log(taskResult.toString());
