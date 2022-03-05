@@ -45,7 +45,7 @@ public class JsonParallel {
                                 String realUrl = reqHeaders.get("url");
                                 reqHeaders.remove("url");
                                 SpiderDebug.log(realUrl + url);
-                                String json = OkHttpUtil.string(realUrl + url, Misc.ParseOKTag, reqHeaders);
+                                String json = OkHttpUtil.string(realUrl + url, reqHeaders);
                                 JSONObject taskResult = Misc.jsonParse(url, json);
                                 taskResult.put("jxFrom", jxName);
                                 SpiderDebug.log(taskResult.toString());
