@@ -84,7 +84,7 @@ public class Cokemv extends Spider {
         try {
             Document doc = Jsoup.parse(OkHttpUtil.string(siteUrl, getHeaders(siteUrl)));
             // 分类节点
-            Elements elements = doc.select("ul.myui-header__menu>li.hidden-sm a");
+            Elements elements = doc.select("ul.navbar-items>li.swiper-slide a");
             JSONArray classes = new JSONArray();
             for (Element ele : elements) {
                 String name = ele.text();
@@ -112,14 +112,14 @@ public class Cokemv extends Spider {
             result.put("class", classes);
             try {
                 // 取首页推荐视频列表
-                Element homeList = doc.select("ul.myui-vodlist").get(0);
-                Elements list = homeList.select("div.myui-vodlist__box>a");
+                Element homeList = doc.select("div.module-items").get(0);
+                Elements list = homeList.select("a.module-poster-item>a");
                 JSONArray videos = new JSONArray();
                 for (int i = 0; i < list.size(); i++) {
                     Element vod = list.get(i);
                     String title = vod.attr("title");
-                    String cover = vod.attr("data-original");
-                    String remark = vod.selectFirst("span.pic-tag>span").text();
+                    String cover = vod.attr("div.module-item-note").text();
+                    String remark = vod.selectFirst("div.module-item-pic>img").attr("src");
                     Matcher matcher = regexVid.matcher(vod.attr("href"));
                     if (!matcher.find())
                         continue;
