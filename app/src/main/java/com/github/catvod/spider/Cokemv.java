@@ -119,7 +119,7 @@ public class Cokemv extends Spider {
                     Element vod = list.get(i);
                     String title = vod.attr("title");
                     String cover = vod.attr("div.module-item-note");
-                    String remark = vod.selectFirst("div.module-item-pic");
+                    String remark = vod.selectFirst("div.module-item-pic>img").src();
                     Matcher matcher = regexVid.matcher(vod.attr("href"));
                     if (!matcher.find())
                         continue;
